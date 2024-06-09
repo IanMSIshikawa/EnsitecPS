@@ -9,6 +9,31 @@
             <input v-model="searchTerm" type="text">
             </div>
         <button @click="search(this.searchTerm, this.typeOfSearch)"> Pesquisar </button>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                  <tr>
+                    <th>ProdutoID</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
+                    <th>Categoria</th>
+                    <th>Fornecedor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="produto in produtos" :key="produto.ProdutoID">
+                    <td>{{ produto.ProdutoID }}</td>
+                    <td>{{ produto.ProdutoNome }}</td>
+                    <td>{{ produto.Preco }}</td>
+                    <td>{{ produto.Quantidade }}</td>
+                    <td>{{ produto.CategoriaNome }}</td>
+                    <td>{{ produto.FornecedorNome }}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
     </div>
 </template>
 
@@ -22,7 +47,8 @@ export default {
             titulo: 'Selecione qual o campo usado para a pesquisa de produtos',
             opcoes: ['ProdutoID', 'ProdutoNome'],
             searchTerm: '',
-            typeOfSearch: ''
+            typeOfSearch: '',
+            produtos: []
         };
     },
     methods: {
@@ -31,6 +57,7 @@ export default {
                 const response = await axios.get(`http://localhost:4000/search/${type}/${term}`)
                 const data = response.data
                 console.debug(data)
+                this.produtos = data
             } catch (error) {
                 console.error('Erro ao pesquisar', error)
             }
@@ -40,6 +67,12 @@ export default {
 </script>
 
 <style>
+.table-container {
+    th{
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
 .select-container {
     background-color: #181818;
     border: 0cap;
