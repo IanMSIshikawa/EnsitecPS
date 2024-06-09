@@ -7,7 +7,7 @@
         <div class="button_container">
           <button @click="goToSearch"> {{ botoes[0] }} </button>
           <button> {{ botoes[1] }} </button>
-          <button> {{ botoes[2] }} </button>
+          <button @click="goToInsert"> {{ botoes[2] }} </button>
           <button> {{ botoes[3] }} </button>
         </div>
     </div>
@@ -23,7 +23,11 @@ export default {
   methods: {
     goToSearch: function() {
       this.$router.push({name: 'searchPage'})
+    },
+    goToInsert: function() {
+      this.$router.push({name: 'insertPage'})
     }
+
   }
 };
 </script>

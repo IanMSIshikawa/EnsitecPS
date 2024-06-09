@@ -15,6 +15,11 @@ const router = createRouter({
       component: () => import('../pages/searchPage.vue')
     },
     {
+      path: '/insert',
+      name: 'insertPage',
+      component: () => import('../pages/insertPage.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import('../views/AboutView.vue')

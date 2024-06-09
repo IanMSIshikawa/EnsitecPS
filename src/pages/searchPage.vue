@@ -45,7 +45,7 @@ export default {
     data() {
         return {
             titulo: 'Selecione qual o campo usado para a pesquisa de produtos',
-            opcoes: ['ProdutoID', 'ProdutoNome'],
+            opcoes: ['ProdutoID', 'ProdutoNome', 'FornecedorNome'],
             searchTerm: '',
             typeOfSearch: '',
             produtos: []
@@ -94,6 +94,7 @@ export default {
 button {
     margin-left: 20px;
     margin-right: 20px;
+    margin-bottom: 20px;
     scale: 1.5;
     background-color:#282828;
     border-radius: 4px; 
@@ -117,6 +118,10 @@ button {
   p {
     margin-top: 20px;
     font-size: 18px;
+  }
+  td, tr {
+    scale: 1.2;
+    padding: 20px
   }
   
 </style>
