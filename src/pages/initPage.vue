@@ -5,7 +5,7 @@
             Selecione uma das opções abaixo para prosseguir
         </p>
         <div class="button_container">
-          <button> {{ botoes[0] }} </button>
+          <button @click="goToSearch"> {{ botoes[0] }} </button>
           <button> {{ botoes[1] }} </button>
           <button> {{ botoes[2] }} </button>
           <button> {{ botoes[3] }} </button>
@@ -19,6 +19,11 @@ export default {
       titulo: 'Estoque fácil',
       botoes: ['Pesquisar', 'Editar', 'Inserir', 'Deletar']
     };
+  },
+  methods: {
+    goToSearch: function() {
+      this.$router.push({name: 'searchPage'})
+    }
   }
 };
 </script>
