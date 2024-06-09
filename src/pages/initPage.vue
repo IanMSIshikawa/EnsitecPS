@@ -43,6 +43,10 @@ export default {
   margin-top: 40px;
   margin-left: 20px;
   margin-right: 20px;
+  background-color:#282828;
+  border-radius: 4px; 
+  border-color: #282828;
+  color: rgba(235, 235, 235, 0.64);
   scale: 1.5;
 }
 
