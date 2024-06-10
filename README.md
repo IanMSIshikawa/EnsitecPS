@@ -1,29 +1,16 @@
 # EnsitecPS
-
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
+This project use Node.js v20.11.1
 ## Project Setup
+Check your node version, if your version is different of 20.11.1 run: 
 
 ```sh
-yarn
+nvm use v20.11.1
 ```
-
-### Compile and Hot-Reload for Development
+## After set node version
 
 ```sh
+yarn install
 yarn dev
 ```
 
-### Compile and Minify for Production
 
-```sh
-yarn build
-```
