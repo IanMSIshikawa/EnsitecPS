@@ -6,23 +6,55 @@ Check your node version, if your version is different of 20.11.1 run:
 ```sh
 nvm use v20.11.1
 ```
-## After set node version
+### Create database
+Enter in project directory and login in MySQL 
+```sh
+mysql -p -u < your user >
+```
+Enter your password
+
+```sh
+source DDL.sql
+```
+
+## Package manager
 use your favorite node package manager, you can use npm or yarn
 
 ### Yarn 
 ```sh
 yarn install
-yarn dev
 ```
 
 ### npm
 ```sh
 npm install
-npm run dev
 ```
 
-## Opening project in browser 
+### Running server
 
-Finally, open the localhost indicated in your terminal 
+First, edit your user and password in server.js file.
+In lines 9 and 10, put your mysql server user and password
+
+#### Launching server
+```sh
+    cd src/
+    node server.js
+```
+
+### Running app in browser 
+Use yarn or npm to lauch 
+
+#### Yarn
+```sh
+yarn dev
+```
+
+#### Npm
+```sh
+yarn run dev
+```
+
+Finally, open the local host indicated in your terminal
+
 
 
