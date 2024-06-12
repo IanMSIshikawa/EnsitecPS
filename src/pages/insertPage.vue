@@ -1,19 +1,44 @@
 <template>
-    <div id="app">
+    <div id="app" class="container">
         <h1>Selecione qual categoria deseja Inserir</h1>
-        <div class="button_container">
-            <button> Produto </button>
-            <button> Categoria </button>
-            <button> Fornecedor </button>
+        <div class="select-container">
+            <select v-model="typeOfSearch">
+                <option disabled value="">Selecione uma opção</option>
+                <option v-for="opcao in opcoes" :key="opcao" :value="opcao"> {{ opcao }}</option>
+                </select>
+            <button @click="getColumns(typeOfSearch)">Selecionar</button>
         </div>
+        <!-- <div v-for="col in columns" :key="col" :value="col">
+            <p> {{ col }} </p>
+        </div> -->
         
     </div>
 </template>
 
 <script>
-export default {
+import axios from 'axios'
 
-}
+export default {
+    data() {
+        return{
+            typeOfSearch: '',
+            opcoes: ['Produtos', 'Fornecedores', 'Categorias'],
+            columns: []
+        };
+    }, 
+    methods: {
+        async getColumns (table) {
+            try {
+                const response = await axios.get(`http://localhost:4000/get/columns/${table}`)
+                const data = response.data
+                console.debug(data)
+                this.columns = data
+            } catch (error) {
+                console.error('Erro ao pesquisar', error)
+            }
+        }
+    }
+};
 </script>
 
 <style>
@@ -28,4 +53,32 @@ export default {
     color: rgba(235, 235, 235, 0.64);
     scale: 1.5;
 }
+.select-container {
+    background-color: #181818;
+    border: 0cap;
+    color: rgba(235, 235, 235, 0.64);
+    scale: 1.5;
+    margin-bottom: 20px;
+    select {
+        background-color: #181818;
+        border: 0cap;
+        color: rgba(235, 235, 235, 0.64);
+    };
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+h1 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+
 </style>

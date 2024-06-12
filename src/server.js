@@ -44,6 +44,19 @@ app.get('/search/:type/:term', (req, res) => {
     res.send(results);
   });
 });
+app.get('/get/columns/:table', (req, res) => {
+  const table = req.params.table
+  const sql = `SHOW COLUMNS FROM ${table}`;
+  db.query(sql, [table], (err, results) => {
+    if (err) {
+      console.error(err)
+      return res.status(500).send('Erro ao pesquisar item dados.');
+    }
+    const columnsName = results.map(column => column.Field);
+    console.debug(columnsName)
+    res.json(columnsName);
+  });
+});
 
 // Iniciar servidor
 app.listen(port, () => {

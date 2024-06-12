@@ -2,12 +2,12 @@
     <div id="app" class="container">
         <h1> {{ titulo }} </h1>
         <div class="select-container">
-            <select v-model="typeOfSearch">//alterar para a senha do seu usuário 
+            <select v-model="typeOfSearch">
                 <option disabled value="">Selecione uma opção</option>
                 <option v-for="opcao in opcoes" :key="opcao" :value="opcao"> {{ opcao }}</option>
             </select>
             <input v-model="searchTerm" type="text">
-            </div>
+        </div>
         <button @click="search(this.searchTerm, this.typeOfSearch)"> Pesquisar </button>
 
         <div class="table-container">
@@ -61,7 +61,7 @@ export default {
             } catch (error) {
                 console.error('Erro ao pesquisar', error)
             }
-    }
+        }
     }
 };
 </script>
