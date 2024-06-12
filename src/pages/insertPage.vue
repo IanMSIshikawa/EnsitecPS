@@ -8,9 +8,23 @@
                 </select>
             <button @click="getColumns(typeOfSearch)">Selecionar</button>
         </div>
-        <!-- <div v-for="col in columns" :key="col" :value="col">
-            <p> {{ col }} </p>
-        </div> -->
+
+        <div class="tabela">
+            <table>
+                <thead>
+                    <tr>
+                        <th v-for="col in columns" :key="col" :value="col"> {{ col }} </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td  v-for="col in columns" :key="col" :value="col">
+                            <input type="text" v-model="formData[col]" :placeholder="`Preencha ${col}`" >
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         
     </div>
 </template>
@@ -23,7 +37,8 @@ export default {
         return{
             typeOfSearch: '',
             opcoes: ['Produtos', 'Fornecedores', 'Categorias'],
-            columns: []
+            columns: [],
+            formData:[]
         };
     }, 
     methods: {
@@ -42,6 +57,12 @@ export default {
 </script>
 
 <style>
+
+.colunas{
+    display: flex;
+    flex-direction: row;
+}
+
 .button_container button{
     text-align: center;
     margin-top: 40px;
