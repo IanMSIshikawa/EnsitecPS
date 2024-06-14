@@ -58,6 +58,33 @@ app.get('/get/columns/:table', (req, res) => {
   });
 });
 
+//Rotas para inserir dados
+ app.post('/insert/:type', (req, res) => {
+  const type = req.params.type
+  const dados = req.body
+  console.debug(dados)
+  sql = ""
+  if(type === "Produtos"){
+    sql = `INSERT INTO ${type} (Nome, Preco, Quantidade, CategoriaID, FornecedorID) VALUES (?, ?, ?, ?, ?)`;
+    params = [dados.Nome, dados.Preco, dados.Quantidade, dados.CategoriaID, dados.FornecedorID];
+  } else if (type === "Categorias"){
+    sql = `INSERT INTO ${type} (Nome) VALUES (?)`;
+    params = [dados.Nome];
+  } else {
+    sql = `INSERT INTO ${type} (Nome, Contato) VALUES (?, ?)`;
+    params = [dados.Nome, dados.Contato];
+  }
+  db.query(sql, params,(err, result) => {
+    if (err) {
+      console.debug(err)
+      return res.status(500).send('Erro ao inserir dados.', err);
+    }
+      res.status(201).send('Item inserido com sucesso.');
+    });
+
+ });
+
+
 // Iniciar servidor
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
