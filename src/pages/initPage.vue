@@ -8,7 +8,6 @@
           <button @click="goToSearch"> {{ botoes[0] }} </button>
           <button> {{ botoes[1] }} </button>
           <button @click="goToInsert"> {{ botoes[2] }} </button>
-          <button> {{ botoes[3] }} </button>
         </div>
     </div>
 </template>
@@ -17,7 +16,7 @@ export default {
   data() {
     return {
       titulo: 'Estoque fácil',
-      botoes: ['Pesquisar', 'Editar', 'Inserir', 'Deletar']
+      botoes: ['Pesquisar', 'Editar', 'Inserir']
     };
   },
   methods: {

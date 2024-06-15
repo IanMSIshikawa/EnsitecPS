@@ -98,6 +98,22 @@ app.delete('/delete/:id', (req, res) => {
   });
 });
 
+//Rota para editar 
+app.put('/update/product/:productID', (req, res) => {
+  const product_id = req.params.productID
+  console.debug(product_id)
+  const {  ProdutoNome, Preco, Quantidade, CategoriaID, FornecedorID } = req.body;
+  const sql = 'UPDATE Produtos SET Nome = ?, Preco = ?, Quantidade = ?, CategoriaID = ?, FornecedorID = ?';
+
+  db.query(sql, [ProdutoNome, Preco, Quantidade, CategoriaID, FornecedorID, product_id], (err, result) => {
+    if (err) {
+      return res.status(500).send('Erro ao atualizar o produto');
+    }
+    res.send('Produto atualizado com sucesso');
+  });
+});
+
+
 // Iniciar servidor
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);

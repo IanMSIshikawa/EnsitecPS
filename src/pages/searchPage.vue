@@ -11,54 +11,81 @@
         <button @click="search(this.searchTerm, this.typeOfSearch)"> Pesquisar </button>
 
         <div class="table-container">
-            <table>
-                <thead>
-                  <tr>
-                    <th>ProdutoID</th>
-                    <th>Nome</th>
-                    <th>Preço</th>
-                    <th>Quantidade</th>
-                    <th>Categoria</th>
-                    <th>Fornecedor</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="produto in produtos" :key="produto.ProdutoID">
-                    <td>{{ produto.ProdutoID }}</td>
-                    <td>{{ produto.ProdutoNome }}</td>
-                    <td>{{ produto.Preco }}</td>
-                    <td>{{ produto.Quantidade }}</td>
-                    <td>{{ produto.CategoriaNome }}</td>
-                    <td>{{ produto.FornecedorNome }}</td>
-                    <td><button @click="deletar(produto.ProdutoID)"> Deletar </button></td>
-                  </tr>
-                </tbody>
-              </table>
+            <dialogEdit
+            :visible.sync="isDialogVisible"
+            :tableVisible.sync="isTableVisible"
+            :editProduct="editProduct"
+            >
+            </dialogEdit>
+            <div v-if="isTableVisible">
+
+                <table>
+                    <thead>
+                      <tr>
+                        <th>ProdutoID</th>
+                        <th>Nome</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th>Categoria</th>
+                        <th>Fornecedor</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="produto in produtos" :key="produto.ProdutoID">
+                        <td>{{ produto.ProdutoID }}</td>
+                        <td>{{ produto.ProdutoNome }}</td>
+                        <td>{{ produto.Preco }}</td>
+                        <td>{{ produto.Quantidade }}</td>
+                        <td>{{ produto.CategoriaNome }}</td>
+                        <td>{{ produto.FornecedorNome }}</td>
+                        <td><button @click="deletar(produto.ProdutoID)"> Deletar </button></td>
+                        <td><button @click="showDialog(produto)"> Editar </button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+            </div>
         </div>
+       
+
     </div>
 </template>
 
 <script>
 
 import axios from 'axios'
+import dialogEdit from './editDialog.vue';
 
 export default {
+    components:{
+        dialogEdit
+    },
     data() {
         return {
             titulo: 'Selecione qual o campo usado para a pesquisa de produtos',
             opcoes: ['ProdutoID', 'ProdutoNome', 'FornecedorNome'],
             searchTerm: '',
             typeOfSearch: '',
-            produtos: []
+            produtos: [],
+            isDialogVisible: false,
+            isTableVisible: true,
+            editProduct: {}
         };
     },
     methods: {
+        showDialog(produto){
+            this.editProduct = produto
+            this.isTableVisible = false
+            this.isDialogVisible=true
+        },
         async search (term, type) {
             try {
                 const response = await axios.get(`http://localhost:4000/search/${type}/${term}`)
                 const data = response.data
                 console.debug(data)
                 this.produtos = data
+                this.isTableVisible = true
+                this.isDialogVisible = false
             } catch (error) {
                 console.error('Erro ao pesquisar', error)
             }
@@ -81,6 +108,10 @@ export default {
         margin-left: 20px;
         margin-right: 20px;
     }
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 .select-container {
     background-color: #181818;
