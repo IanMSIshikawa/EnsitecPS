@@ -59,31 +59,44 @@ app.get('/get/columns/:table', (req, res) => {
 });
 
 //Rotas para inserir dados
- app.post('/insert/:type', (req, res) => {
-  const type = req.params.type
-  const dados = req.body
-  console.debug(dados)
-  sql = ""
-  if(type === "Produtos"){
-    sql = `INSERT INTO ${type} (Nome, Preco, Quantidade, CategoriaID, FornecedorID) VALUES (?, ?, ?, ?, ?)`;
-    params = [dados.Nome, dados.Preco, dados.Quantidade, dados.CategoriaID, dados.FornecedorID];
-  } else if (type === "Categorias"){
-    sql = `INSERT INTO ${type} (Nome) VALUES (?)`;
-    params = [dados.Nome];
-  } else {
-    sql = `INSERT INTO ${type} (Nome, Contato) VALUES (?, ?)`;
-    params = [dados.Nome, dados.Contato];
+app.post('/insert/:type', (req, res) => {
+const type = req.params.type
+const dados = req.body
+console.debug(dados)
+sql = ""
+if(type === "Produtos"){
+  sql = `INSERT INTO ${type} (Nome, Preco, Quantidade, CategoriaID, FornecedorID) VALUES (?, ?, ?, ?, ?)`;
+  params = [dados.Nome, dados.Preco, dados.Quantidade, dados.CategoriaID, dados.FornecedorID];
+} else if (type === "Categorias"){
+  sql = `INSERT INTO ${type} (Nome) VALUES (?)`;
+  params = [dados.Nome];
+} else {
+  sql = `INSERT INTO ${type} (Nome, Contato) VALUES (?, ?)`;
+  params = [dados.Nome, dados.Contato];
+}
+db.query(sql, params,(err, result) => {
+  if (err) {
+    console.debug(err)
+    return res.status(500).send('Erro ao inserir dados.', err);
   }
-  db.query(sql, params,(err, result) => {
+    res.status(201).send('Item inserido com sucesso.');
+  });
+
+});
+
+//Rotas para deletar
+app.delete('/delete/:id', (req, res) => {
+  const id = req.params.id
+  const sql = 'DELETE FROM Produtos WHERE ProdutoID = ?'
+  db.query(sql, [id], (err, result) => {
     if (err) {
       console.debug(err)
-      return res.status(500).send('Erro ao inserir dados.', err);
+      return res.status(500).send('Erro ao deletar dados.', err);
     }
-      res.status(201).send('Item inserido com sucesso.');
-    });
-
- });
-
+      res.status(201).send('Item deletado com sucesso.');
+      console.debug(sql, id)
+  });
+});
 
 // Iniciar servidor
 app.listen(port, () => {

@@ -30,6 +30,7 @@
                     <td>{{ produto.Quantidade }}</td>
                     <td>{{ produto.CategoriaNome }}</td>
                     <td>{{ produto.FornecedorNome }}</td>
+                    <td><button @click="deletar(produto.ProdutoID)"> Deletar </button></td>
                   </tr>
                 </tbody>
               </table>
@@ -60,6 +61,14 @@ export default {
                 this.produtos = data
             } catch (error) {
                 console.error('Erro ao pesquisar', error)
+            }
+        },
+        async deletar (productID){
+            try {
+                await axios.delete(`http://localhost:4000/delete/${productID}`)
+                this.search(this.searchTerm, this.typeOfSearch)
+            } catch (error) {
+                console.error('Erro ao deletar', error)
             }
         }
     }
@@ -95,7 +104,7 @@ button {
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 20px;
-    scale: 1.5;
+    scale: 1.2;
     background-color:#282828;
     border-radius: 4px; 
     border-color: #282828;

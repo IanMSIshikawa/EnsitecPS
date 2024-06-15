@@ -19,7 +19,7 @@
                 <tbody>
                     <tr>
                         <td  v-for="col in columns" :key="col" :value="col" >
-                            <input type="text" v-model="formData[col]" :placeholder="`Preencha ${col}`" >
+                            <input type="text" v-model="formData[col]" :placeholder="`Preencha ${col}`">
                         </td>
                     </tr>
                 </tbody>
