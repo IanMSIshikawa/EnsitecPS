@@ -8,7 +8,7 @@
             </select>
             <input v-model="searchTerm" type="text">
         </div>
-        <button @click="search(this.searchTerm, this.typeOfSearch)"> Pesquisar </button>
+        <button @click="search(this.searchTerm, this.typeOfSearch, 1)"> Pesquisar </button>
 
         <div class="table-container">
             <dialogEdit
@@ -44,6 +44,11 @@
                     </tbody>
                   </table>
 
+                  <div class="paginacao">
+                    <button @click="pages(this.searchTerm, this.typeOfSearch, isNext=false)"> Pagina Anterior</button>
+                    <button @click="pages(this.searchTerm, this.typeOfSearch, isNext=true)"> Proxima Pagina </button>
+                  </div>
+
             </div>
         </div>
        
@@ -69,7 +74,8 @@ export default {
             produtos: [],
             isDialogVisible: false,
             isTableVisible: true,
-            editProduct: {}
+            editProduct: {},
+            page: 1
         };
     },
     methods: {
@@ -78,9 +84,9 @@ export default {
             this.isTableVisible = false
             this.isDialogVisible=true
         },
-        async search (term, type) {
+        async search (term, type, page) {
             try {
-                const response = await axios.get(`http://localhost:4000/search/${type}/${term}`)
+                const response = await axios.get(`http://localhost:4000/search/${type}/${term}/${page}`)
                 const data = response.data
                 console.debug(data)
                 this.produtos = data
@@ -96,6 +102,27 @@ export default {
                 this.search(this.searchTerm, this.typeOfSearch)
             } catch (error) {
                 console.error('Erro ao deletar', error)
+            }
+        },
+        async pages (term, type, isNext) {
+            if (isNext){
+                this.page ++
+            }
+            else{
+                if(this.page > 1){
+                    this.page --
+                }
+            }
+            const page = this.page
+            try {
+                const response = await axios.get(`http://localhost:4000/search/${type}/${term}/${page}`)
+                const data = response.data
+                console.debug(data)
+                this.produtos = data
+                this.isTableVisible = true
+                this.isDialogVisible = false
+            } catch (error) {
+                console.error('Erro ao pesquisar', error)
             }
         }
     }

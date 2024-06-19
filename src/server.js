@@ -32,11 +32,14 @@ db.connect(err => {
 
 // Rotas pars buscar informações
 
-app.get('/search/:type/:term', (req, res) => {
+app.get('/search/:type/:term/:page', (req, res) => {
   const type = req.params.type
   const term = req.params.term
+  const page = req.params.page
+  const limit = 2
+  const offset = (page-1)*limit
 
-  const sql = `SELECT * FROM ProdutosDetalhados WHERE ${type} = ?`;
+  const sql = `SELECT * FROM ProdutosDetalhados WHERE ${type} = ? LIMIT ${limit} OFFSET ${offset}`;
   db.query(sql, [term], (err, results) => {
     if (err) {
       return res.status(500).send('Erro ao pesquisar item dados.');
