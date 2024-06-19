@@ -51,10 +51,16 @@ yarn dev
 
 #### Npm
 ```sh
-yarn run dev
+npm run dev
 ```
 
 Finally, open the local host indicated in your terminal
+
+## Fonts
+https://vuejs.org/guide/introduction.html
+https://stackoverflow.com/
+https://chatgpt.com/
+
 
 
 
