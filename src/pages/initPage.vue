@@ -2,12 +2,11 @@
     <div id="app" class="container">
         <h1>{{ titulo }}</h1>
         <p> Pesquise, edite, insira ou delete produtos do estoque <br>
-            Selecione uma das opções abaixo para prosseguir
+            Selecione a opção Pesquisar para procurar por itens específicos, mas também editar e deletar
         </p>
         <div class="button_container">
           <button @click="goToSearch"> {{ botoes[0] }} </button>
-          <button> {{ botoes[1] }} </button>
-          <button @click="goToInsert"> {{ botoes[2] }} </button>
+          <button @click="goToInsert"> {{ botoes[1] }} </button>
         </div>
     </div>
 </template>
@@ -16,7 +15,7 @@ export default {
   data() {
     return {
       titulo: 'Estoque fácil',
-      botoes: ['Pesquisar', 'Editar', 'Inserir']
+      botoes: ['Pesquisar', 'Inserir']
     };
   },
   methods: {
